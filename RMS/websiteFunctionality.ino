@@ -14,6 +14,11 @@ void routesConfiguration() {
     request->send(SPIFFS, "/index.html", "text/html");
   });
 
+  // Example of linking to an external file
+  server.on("/arduino.css", HTTP_GET, [](AsyncWebServerRequest * request) {
+    request->send(SPIFFS, "/arduino.css", "text/css");
+  });
+
 
   // Example of a route with additional authentication (popup in browser)
   // And uses the processor function.

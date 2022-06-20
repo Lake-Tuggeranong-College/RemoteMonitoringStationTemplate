@@ -20,15 +20,58 @@ char daysOfTheWeek[7][12] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursd
 // RTC End
 
 boolean LEDOn = false; // State of Built-in LED true=on, false=off.
+#define LOOPDELAY 100
+
 
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(9600);
+  while (!Serial) {
+    delay(10);
+  }
+  delay(1000);
+
+  if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
+    // Follow instructions in README and install
+    // https://github.com/me-no-dev/arduino-esp32fs-plugin
+    Serial.println("SPIFFS Mount Failed");
+    return;
+  }
+
+  // Wifi Configuration
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi..");
+  }
+  Serial.println();
+  Serial.print("Connected to the Internet");
+  Serial.print("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  routesConfiguration(); // Reads routes from routesManagement
+  
+  server.begin();
+  
+  // RTC
+  if (! rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    Serial.flush();
+    //    abort();
+  }
+  
+  // The following line can be uncommented if the time needs to be reset.
+  rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  rtc.start();
+
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  
 
+
+  
+ delay(LOOPDELAY); // To allow time to publish new code.
 }
 
 
