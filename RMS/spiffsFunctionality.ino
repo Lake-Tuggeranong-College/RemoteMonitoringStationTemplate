@@ -8,7 +8,7 @@ void readFile(fs::FS &fs, const char * path) {
     return;
   }
 
-  Serial.println("- read from file:");
+  //  Serial.println("- read from file:");
   while (file.available()) {
     Serial.write(file.read());
   }
@@ -24,7 +24,8 @@ void writeFile(fs::FS &fs, const char * path, const char * message) {
     return;
   }
   if (file.print(message)) {
-    Serial.println("- file written");
+    delay(1);
+    //    Serial.println("- file written");
   } else {
     Serial.println("- write failed");
   }
@@ -32,7 +33,7 @@ void writeFile(fs::FS &fs, const char * path, const char * message) {
 }
 
 void appendFile(fs::FS &fs, const char * path, const char * message) {
-//  Serial.printf("Appending to file: %s\r\n", path);
+  //  Serial.printf("Appending to file: %s\r\n", path);
 
   File file = fs.open(path, FILE_APPEND);
   if (!file) {
@@ -51,7 +52,8 @@ void appendFile(fs::FS &fs, const char * path, const char * message) {
 void renameFile(fs::FS &fs, const char * path1, const char * path2) {
   Serial.printf("Renaming file %s to %s\r\n", path1, path2);
   if (fs.rename(path1, path2)) {
-    Serial.println("- file renamed");
+    delay(1);
+    //Serial.println("- file renamed");
   } else {
     Serial.println("- rename failed");
   }
