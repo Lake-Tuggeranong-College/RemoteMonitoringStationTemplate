@@ -76,7 +76,7 @@ void loop() {
 
 
 void builtinLED() {
-  if (LEDon) {
+  if (LEDOn) {
     digitalWrite(LED_BUILTIN, HIGH);
   } else {
     digitalWrite(LED_BUILTIN, LOW);
